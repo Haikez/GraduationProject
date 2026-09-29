@@ -1,0 +1,23 @@
+# ==========================================================
+# TrafficFlowPaper · Git 属性
+# ==========================================================
+
+# 本机 core.autocrlf=true。若完全交给 git 自动判断，二进制文档可能被
+# 误判为文本并遭换行符改写（本仓库中的“基于时空图神经网络的地铁客流量
+# 预测模型研究_潘路远.pdf”就曾被判为文本）。故显式声明为二进制：
+# 不做 CRLF 转换，也不做文本 diff。
+*.pdf   binary
+*.doc   binary
+*.docx  binary
+*.xls   binary
+*.xlsx  binary
+*.ppt   binary
+*.pptx  binary
+*.jpg   binary
+*.jpeg  binary
+*.png   binary
+
+# 纯文本仍按文本处理：仓库内统一存 LF，工作区按系统自动转换
+*.txt     text
+*.md      text
+.gitignore text
