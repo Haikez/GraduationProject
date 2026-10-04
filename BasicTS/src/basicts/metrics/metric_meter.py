@@ -47,6 +47,7 @@ class RMSEMeter:
     def __init__(self):
         self._mse: float = 0.
         self._count: int = 0
+        self.last: float = 0.
 
     def reset(self):
         """Reset counter.
@@ -54,6 +55,7 @@ class RMSEMeter:
 
         self._mse = 0.
         self._count = 0
+        self.last = 0.
 
     def update(self, value: float, n: int = 1):
         """Update sum and count.
@@ -65,6 +67,7 @@ class RMSEMeter:
 
         self._mse += value ** 2 * n
         self._count += n
+        self.last = value
 
     @property
     def value(self) -> float:

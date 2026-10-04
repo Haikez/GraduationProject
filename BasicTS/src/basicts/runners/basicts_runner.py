@@ -512,7 +512,7 @@ class BasicTSRunner:
             if mode == BasicTSMode.EVAL:
                 self._save_results(step, forward_return)
             # evaluation on specific timesteps
-            if self.eval_horizons is not None:
+            if self.eval_horizons is not None and mode != BasicTSMode.VAL:
                 self._eval_on_horizons(forward_return)
             # update metrics meter
             for metric_name, metric_item in self.metrics.items():
