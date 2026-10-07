@@ -239,7 +239,7 @@ class BasicTSClassificationConfig(BasicTSConfig):
     ############################## Environment Configuration ##############################
 
     tf32: bool = field(
-        default=False, metadata={"help": "Whether to use TensorFloat-32 in GPU." \
+        default=True, metadata={"help": "Whether to use TensorFloat-32 in GPU." \
                                  "See https://pytorch.org/docs/stable/notes/cuda.html#tf32-on-ampere."})
 
     deterministic: bool = field(

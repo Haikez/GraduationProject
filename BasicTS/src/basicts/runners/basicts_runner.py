@@ -840,7 +840,7 @@ class BasicTSRunner:
 
         env config template:
         ```
-        cfg.tf32 = False
+        cfg.tf32 = True
         cfg.seed = 42
         cfg.deterministic = True
         cfg.cudnn_enabled = False
@@ -852,8 +852,13 @@ class BasicTSRunner:
             cfg (BasicTSConfig): env config.
         """
 
-        # tf32
-        set_tf32_mode(cfg.tf32)
+        # EasyTorch leaves PyTorch defaults unchanged when tf32=True. Set
+        # both GPU backends explicitly so the saved config matches execution.
+        gpu_tf32 = cfg.tf32 and cfg.gpus is not None
+        set_tf32_mode(gpu_tf32)
+        if gpu_tf32:
+            torch.backends.cuda.matmul.allow_tf32 = True
+            torch.backends.cudnn.allow_tf32 = True
 
         # determinacy
         seed = cfg.seed
@@ -865,6 +870,16 @@ class BasicTSRunner:
                 cfg.cudnn_enabled,
                 cfg.cudnn_benchmark,
                 cfg.cudnn_determinstic
+            )
+
+        # An explicit cuDNN override allows convolution TF32 without enabling
+        # TF32 for CUDA matrix multiplications. Keep it in the saved config.
+        if cfg.get("cudnn_tf32", None) is not None:
+            torch.backends.cudnn.allow_tf32 = cfg.cudnn_tf32
+            self.logger.info(
+                "cuDNN TF32: %s; CUDA matmul TF32: %s",
+                torch.backends.cudnn.allow_tf32,
+                torch.backends.cuda.matmul.allow_tf32,
             )
 
     def _count_parameters(self) -> None:

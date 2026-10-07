@@ -27,5 +27,16 @@ class DSTMambaConfig(BasicTSModelConfig):
     ds_type: str = "avg"
     ds_layers: int = 3
     ds_window: int = 2
+    trend_downsampling: str = "source"
+    sci_hidden_channels: int = 8
+    sci_kernel_size: int = 3
+    sci_dropout: float = 0.0
+    seasonal_encoder: str = "dst_mamba"
+    idmamba_channels: int = 48
+    idmamba_granularity: int = 288
+    idmamba_dropout: float = 0.1
+    stidgcn_channels: int = 48
+    stidgcn_granularity: int = 288
+    stidgcn_dropout: float = 0.1
     initial_tre_w: float = 0.9
     mamba_backend: str = "official"

@@ -134,7 +134,7 @@ class BasicTSConfig(EasyDict):
 
     ############################## Environment Configuration ##############################
 
-    tf32: bool # Whether to use TensorFloat-32 in GPU. Default: False. See https://pytorch.org/docs/stable/notes/cuda.html#tf32-on-ampere.
+    tf32: bool # Whether to use TensorFloat-32 in GPU. Default: True. See https://pytorch.org/docs/stable/notes/cuda.html#tf32-on-ampere.
     deterministic: bool # Whether to set the random seed to get deterministic results. Default: False
     cudnn_enabled: bool # Whether to enable cuDNN. Default: True
     cudnn_benchmark: bool # Whether to enable cuDNN benchmark. Default: True
