@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1220" height="620" viewBox="0 0 1220 620">
+<title>SCF-Mamba 总体结构</title><desc>SCF-Mamba 交通流预测模型总体框架与数据流</desc>
+<style>text{font-family:'Times New Roman','SimSun','Songti SC','Microsoft YaHei','Cambria Math','Segoe UI Symbol',serif;}</style>
+<defs><marker id="ah" markerWidth="9" markerHeight="7" refX="8.5" refY="3.5" orient="auto"><path d="M0,0 L9,3.5 L0,7 z" fill="#404040"/></marker><marker id="ac" markerWidth="9" markerHeight="7" refX="8.5" refY="3.5" orient="auto"><path d="M0,0 L9,3.5 L0,7 z" fill="#31859B"/></marker></defs>
+<rect x="0" y="0" width="1220" height="620" fill="#FFFFFF"/>
+<path d="M 208 199 L 208 345 L 845 345 L 845 218" fill="none" stroke="#404040" stroke-width="1.6" stroke-dasharray="8 6" marker-end="url(#ah)"/>
+<rect x="20" y="130" width="140" height="138" rx="8" fill="#F2F2F2" stroke="#808080" stroke-width="1.4"/>
+<rect x="105" y="20" width="160" height="76" rx="8" fill="#F2F2F2" stroke="#808080" stroke-width="1.4"/>
+<path d="M 185 96 L 185 181" fill="none" stroke="#404040" stroke-width="1.6" marker-end="url(#ah)"/>
+<circle cx="185" cy="199" r="16" fill="#F2F2F2" stroke="#808080" stroke-width="1.4"/>
+<path d="M 177.0 199 L 193.0 199 M 185 191.0 L 185 207.0" stroke="#1A1A1A" stroke-width="1.7" stroke-linecap="round"/>
+<path d="M 160 199 L 167 199" fill="none" stroke="#404040" stroke-width="1.6" marker-end="url(#ah)"/>
+<path d="M 201 199 L 213 199" fill="none" stroke="#404040" stroke-width="1.6" marker-end="url(#ah)"/>
+<rect x="215" y="118" width="170" height="162" rx="8" fill="#DEEBF7" stroke="#2E75B6" stroke-width="1.4"/>
+<rect x="415" y="100" width="180" height="90" rx="8" fill="#DEEBF7" stroke="#2E75B6" stroke-width="1.4"/>
+<rect x="415" y="208" width="180" height="90" rx="8" fill="#DEEBF7" stroke="#2E75B6" stroke-width="1.4"/>
+<path d="M 385 160 Q 400 145 415 145" fill="none" stroke="#404040" stroke-width="1.6" marker-end="url(#ah)"/>
+<path d="M 385 240 Q 400 253 415 253" fill="none" stroke="#404040" stroke-width="1.6" marker-end="url(#ah)"/>
+<rect x="625" y="118" width="190" height="162" rx="8" fill="#E8E1F2" stroke="#7030A0" stroke-width="1.4"/>
+<path d="M 595 145 Q 610 175 625 175" fill="none" stroke="#404040" stroke-width="1.6" marker-end="url(#ah)"/>
+<path d="M 595 253 Q 610 223 625 223" fill="none" stroke="#404040" stroke-width="1.6" marker-end="url(#ah)"/>
+<circle cx="845" cy="199" r="16" fill="#F2F2F2" stroke="#808080" stroke-width="1.4"/>
+<path d="M 837.0 199 L 853.0 199 M 845 191.0 L 845 207.0" stroke="#1A1A1A" stroke-width="1.7" stroke-linecap="round"/>
+<path d="M 815 199 L 827 199" fill="none" stroke="#404040" stroke-width="1.6" marker-end="url(#ah)"/>
+<path d="M 861 199 L 878 199" fill="none" stroke="#404040" stroke-width="1.6" marker-end="url(#ah)"/>
+<rect x="880" y="130" width="170" height="138" rx="8" fill="#FFF2CC" stroke="#BF9000" stroke-width="1.4"/>
+<path d="M 1050 199 L 1078 199" fill="none" stroke="#404040" stroke-width="1.6" marker-end="url(#ah)"/>
+<rect x="1080" y="145" width="120" height="108" rx="8" fill="#F2F2F2" stroke="#808080" stroke-width="1.4"/>
+<rect x="20" y="460" width="170" height="118" rx="8" fill="#F2F2F2" stroke="#808080" stroke-width="1.4"/>
+<path d="M 190 519 L 228 519" fill="none" stroke="#404040" stroke-width="1.6" marker-end="url(#ah)"/>
+<rect x="230" y="460" width="230" height="118" rx="8" fill="#DAEEF3" stroke="#31859B" stroke-width="1.4"/>
+<path d="M 345 460 L 345 286" fill="none" stroke="#31859B" stroke-width="1.6" stroke-dasharray="8 6" marker-end="url(#ac)"/>
+<rect x="500" y="470" width="700" height="120" rx="8" fill="#FFFFFF" stroke="#7F7F7F" stroke-width="1.2"/>
+<rect x="516" y="509" width="20" height="14" rx="2" fill="#DEEBF7" stroke="#2E75B6" stroke-width="1.4"/>
+<rect x="856" y="509" width="20" height="14" rx="2" fill="#FCE4D6" stroke="#C55A11" stroke-width="1.4"/>
+<rect x="516" y="541" width="20" height="14" rx="2" fill="#E8E1F2" stroke="#7030A0" stroke-width="1.4"/>
+<rect x="856" y="541" width="20" height="14" rx="2" fill="#E2EFDA" stroke="#548235" stroke-width="1.4"/>
+<rect x="516" y="573" width="20" height="14" rx="2" fill="#FFF2CC" stroke="#BF9000" stroke-width="1.4"/>
+<rect x="856" y="573" width="20" height="14" rx="2" fill="#F2F2F2" stroke="#808080" stroke-width="1.4"/>
+<text text-anchor="middle" fill="#595959"><tspan x="540" y="332" font-size="16.0">残差连接：主干输出 + 位置编码后的输入</tspan></text>
+<text text-anchor="middle" fill="#1A1A1A" font-weight="bold"><tspan x="90" y="164.17" font-size="20.0">输入</tspan></text>
+<text text-anchor="middle" fill="#1A1A1A"><tspan x="90" y="193.16799999999998" font-size="17.0">历史流量 X</tspan></text>
+<text text-anchor="middle" fill="#1A1A1A"><tspan x="90" y="220.70799999999997" font-size="17.0">B×96×N</tspan></text>
+<text text-anchor="middle" fill="#1A1A1A"><tspan x="90" y="248.248" font-size="17.0">（仅流量通道）</tspan></text>
+<text text-anchor="middle" fill="#1A1A1A" font-weight="bold"><tspan x="185" y="50.872" font-size="18.0">节点维位置编码</tspan></text>
+<text text-anchor="middle" fill="#1A1A1A"><tspan x="185" y="77.76400000000001" font-size="16.0">96×N（固定）</tspan></text>
+<text text-anchor="middle" fill="#12385A" font-weight="bold"><tspan x="300" y="164.17" font-size="20.0">SCI 交互块</tspan></text>
+<text text-anchor="middle" fill="#12385A"><tspan x="300" y="193.16799999999998" font-size="17.0">一级 · T = 96</tspan></text>
+<text text-anchor="middle" fill="#12385A"><tspan x="300" y="220.70799999999997" font-size="17.0">奇偶分流 + 卷积</tspan></text>
+<text text-anchor="middle" fill="#12385A"><tspan x="300" y="248.248" font-size="17.0">4 × NodeMamba</tspan></text>
+<text text-anchor="middle" fill="#12385A" font-weight="bold"><tspan x="505" y="137.386" font-size="19.0">二级 SCI 块</tspan></text>
+<text text-anchor="middle" fill="#12385A"><tspan x="505" y="165.898" font-size="17.0">偶支 · T = 48</tspan></text>
+<text text-anchor="middle" fill="#12385A" font-weight="bold"><tspan x="505" y="245.386" font-size="19.0">二级 SCI 块</tspan></text>
+<text text-anchor="middle" fill="#12385A"><tspan x="505" y="273.898" font-size="17.0">奇支 · T = 48</tspan></text>
+<text text-anchor="middle" fill="#3F1A5E" font-weight="bold"><tspan x="720" y="163.522" font-size="18.0">共享双向交叉注意力</tspan></text>
+<text text-anchor="middle" fill="#3F1A5E"><tspan x="720" y="191.54799999999997" font-size="17.0">4 头 · tanh 门控</tspan></text>
+<text text-anchor="middle" fill="#3F1A5E"><tspan x="720" y="219.08799999999997" font-size="17.0">每级合并前调用</tspan></text>
+<text text-anchor="middle" fill="#3F1A5E"><tspan x="720" y="246.62799999999996" font-size="17.0">参数共享 ×3</tspan></text>
+<text text-anchor="middle" fill="#6B5000" font-weight="bold"><tspan x="965" y="166.6" font-size="20.0">多步预测头</tspan></text>
+<text text-anchor="middle" fill="#6B5000"><tspan x="965" y="194.464" font-size="16.0">1×1 Conv1d</tspan></text>
+<text text-anchor="middle" fill="#6B5000"><tspan x="965" y="220.38400000000001" font-size="16.0">96 → H</tspan></text>
+<text text-anchor="middle" fill="#6B5000"><tspan x="965" y="246.30400000000003" font-size="16.0">各节点共享权重</tspan></text>
+<text text-anchor="middle" fill="#1A1A1A" font-weight="bold"><tspan x="1140" y="177.94" font-size="20.0">输出</tspan></text>
+<text text-anchor="middle" fill="#1A1A1A"><tspan x="1140" y="206.938" font-size="17.0">Ŷ</tspan></text>
+<text text-anchor="middle" fill="#1A1A1A"><tspan x="1140" y="234.47799999999998" font-size="17.0">B×H×N</tspan></text>
+<text text-anchor="middle" fill="#595959"><tspan x="680" y="318" font-size="16.0">交叉注意力输出按原时间索引交错合并后，与位置编码后的输入做残差相加</tspan></text>
+<text text-anchor="middle" fill="#1A1A1A" font-weight="bold"><tspan x="105" y="486.6" font-size="20.0">历史时间戳</tspan></text>
+<text text-anchor="middle" fill="#1A1A1A"><tspan x="105" y="514.464" font-size="16.0">S：B×96×2</tspan></text>
+<text text-anchor="middle" fill="#1A1A1A"><tspan x="105" y="540.384" font-size="16.0">（日内/288）</tspan></text>
+<text text-anchor="middle" fill="#1A1A1A"><tspan x="105" y="566.304" font-size="16.0">（七日/7）</tspan></text>
+<text text-anchor="middle" fill="#12414F" font-weight="bold"><tspan x="345" y="497.93999999999994" font-size="20.0">日历嵌入</tspan></text>
+<text text-anchor="middle" fill="#12414F"><tspan x="345" y="526.9379999999999" font-size="17.0">288×32 + 7×32</tspan></text>
+<text text-anchor="middle" fill="#12414F"><tspan x="345" y="554.4779999999998" font-size="17.0">c：B×64</tspan></text>
+<text text-anchor="start" fill="#1F6B7A"><tspan x="360" y="405" font-size="16.0">日历条件 c：注入每个 NodeMamba 块</tspan></text>
+<text text-anchor="start" fill="#333333" font-weight="bold"><tspan x="516" y="494" font-size="17.0">图例</tspan></text>
+<text text-anchor="start" fill="#111111"><tspan x="544" y="520" font-size="16.0">时间卷积 / 主干</tspan></text>
+<text text-anchor="start" fill="#111111"><tspan x="884" y="520" font-size="16.0">节点状态空间（SSM）</tspan></text>
+<text text-anchor="start" fill="#111111"><tspan x="544" y="552" font-size="16.0">交叉注意力</tspan></text>
+<text text-anchor="start" fill="#111111"><tspan x="884" y="552" font-size="16.0">门控与融合</tspan></text>
+<text text-anchor="start" fill="#111111"><tspan x="544" y="584" font-size="16.0">预测头</tspan></text>
+<text text-anchor="start" fill="#111111"><tspan x="884" y="584" font-size="16.0">输入 / 输出</tspan></text>
+</svg>

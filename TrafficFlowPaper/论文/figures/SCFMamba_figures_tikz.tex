@@ -1,0 +1,142 @@
+% !TeX program = xelatex
+% 由 SCF-Mamba 代码结构生成；请用 xelatex 编译（中文需 ctex 或 xeCJK）
+% 导言区需要：\usetikzlibrary{arrows.meta,positioning,calc} 以及下列颜色定义
+% \definecolor{tconvF}{HTML}{DEEBF7} \definecolor{tconvS}{HTML}{2E75B6}
+% \definecolor{ssmF}{HTML}{FCE4D6}   \definecolor{ssmS}{HTML}{C55A11}
+% \definecolor{attnF}{HTML}{E8E1F2}  \definecolor{attnS}{HTML}{7030A0}
+% \definecolor{gateF}{HTML}{E2EFDA}  \definecolor{gateS}{HTML}{548235}
+% \definecolor{headF}{HTML}{FFF2CC}  \definecolor{headS}{HTML}{BF9000}
+% \definecolor{calF}{HTML}{DAEEF3}   \definecolor{calS}{HTML}{31859B}
+% \definecolor{ioF}{HTML}{F2F2F2}    \definecolor{ioS}{HTML}{808080}
+\begin{figure}[t]
+  \centering
+  \resizebox{\textwidth}{!}{%
+  \begin{tikzpicture}[font=\small,>=Stealth,
+    bx/.style={draw, rounded corners=3pt, align=center, inner sep=3pt, line width=0.6pt},
+    tconv/.style={bx, fill=tconvF, draw=tconvS}, ssm/.style={bx, fill=ssmF, draw=ssmS},
+    attn/.style={bx, fill=attnF, draw=attnS}, gate/.style={bx, fill=gateF, draw=gateS},
+    head/.style={bx, fill=headF, draw=headS}, cal/.style={bx, fill=calF, draw=calS},
+    io/.style={bx, fill=ioF, draw=ioS}, grp/.style={draw, dashed, rounded corners=4pt, gray!70, line width=0.8pt},
+    arr/.style={-{Stealth[length=1.6mm]}, draw=black!75, line width=0.7pt},
+    darr/.style={arr, dashed}, carr/.style={arr, dashed, draw=calS}]
+    \draw[darr] (2.08,-1.99) -- (2.08,-3.45) -- (8.45,-3.45) -- (8.45,-2.18);
+    \node[anchor=center, font=\footnotesize, text=black!85] at (5.40,-3.32) {残差连接：主干输出 + 位置编码后的输入};
+    \node[io, minimum width=1.40cm, minimum height=1.38cm, text width=1.26cm, font=\footnotesize] (n0) at (0.20,-1.30) {\textbf{输入}\\ 历史流量 X\\ B$\times$96$\times$N\\ （仅流量通道）};
+    \node[io, minimum width=1.60cm, minimum height=0.76cm, text width=1.46cm, font=\scriptsize] (n1) at (1.05,-0.20) {\textbf{节点维位置编码}\\ 96$\times$N（固定）};
+    \draw[arr] (1.85,-0.96) -- (1.85,-1.81);
+    \node[draw, circle, fill=white, inner sep=1pt, minimum size=0.32cm] (n2) at (1.85,-1.99) {$+$};
+    \draw[arr] (1.60,-1.99) -- (1.67,-1.99);
+    \draw[arr] (2.01,-1.99) -- (2.13,-1.99);
+    \node[tconv, minimum width=1.70cm, minimum height=1.62cm, text width=1.56cm, font=\footnotesize] (n3) at (2.15,-1.18) {\textbf{SCI 交互块}\\ 一级 $\cdot$ T = 96\\ 奇偶分流 + 卷积\\ 4 $\times$ NodeMamba};
+    \node[tconv, minimum width=1.80cm, minimum height=0.90cm, text width=1.66cm, font=\footnotesize] (n4) at (4.15,-1.00) {\textbf{二级 SCI 块}\\ 偶支 $\cdot$ T = 48};
+    \node[tconv, minimum width=1.80cm, minimum height=0.90cm, text width=1.66cm, font=\footnotesize] (n5) at (4.15,-2.08) {\textbf{二级 SCI 块}\\ 奇支 $\cdot$ T = 48};
+    \draw[arr] (3.85,-1.60) .. controls (4.00,-1.45) .. (4.15,-1.45);
+    \draw[arr] (3.85,-2.40) .. controls (4.00,-2.53) .. (4.15,-2.53);
+    \node[attn, minimum width=1.90cm, minimum height=1.62cm, text width=1.76cm, font=\footnotesize] (n6) at (6.25,-1.18) {\textbf{共享双向交叉注意力}\\ 4 头 $\cdot$ tanh 门控\\ 每级合并前调用\\ 参数共享 $\times$3};
+    \draw[arr] (5.95,-1.45) .. controls (6.10,-1.75) .. (6.25,-1.75);
+    \draw[arr] (5.95,-2.53) .. controls (6.10,-2.23) .. (6.25,-2.23);
+    \node[draw, circle, fill=white, inner sep=1pt, minimum size=0.32cm] (n7) at (8.45,-1.99) {$+$};
+    \draw[arr] (8.15,-1.99) -- (8.27,-1.99);
+    \draw[arr] (8.61,-1.99) -- (8.78,-1.99);
+    \node[head, minimum width=1.70cm, minimum height=1.38cm, text width=1.56cm, font=\scriptsize] (n8) at (8.80,-1.30) {\textbf{多步预测头}\\ 1$\times$1 Conv1d\\ 96 $\rightarrow$ H\\ 各节点共享权重};
+    \draw[arr] (10.50,-1.99) -- (10.78,-1.99);
+    \node[io, minimum width=1.20cm, minimum height=1.08cm, text width=1.06cm, font=\footnotesize] (n9) at (10.80,-1.45) {\textbf{输出}\\ $\hat{Y}$\\ B$\times$H$\times$N};
+    \node[anchor=center, font=\footnotesize, text=black!85] at (6.80,-3.18) {交叉注意力输出按原时间索引交错合并后，与位置编码后的输入做残差相加};
+    \node[io, minimum width=1.70cm, minimum height=1.18cm, text width=1.56cm, font=\scriptsize] (n10) at (0.20,-4.60) {\textbf{历史时间戳}\\ S：B$\times$96$\times$2\\ （日内/288）\\ （七日/7）};
+    \draw[arr] (1.90,-5.19) -- (2.28,-5.19);
+    \node[cal, minimum width=2.30cm, minimum height=1.18cm, text width=2.16cm, font=\footnotesize] (n11) at (2.30,-4.60) {\textbf{日历嵌入}\\ 288$\times$32 + 7$\times$32\\ c：B$\times$64};
+    \draw[carr] (3.45,-4.60) -- (3.45,-2.86);
+    \node[anchor=west, font=\footnotesize, text=black!85] at (3.60,-4.05) {日历条件 c：注入每个 NodeMamba 块};
+    \node[grp, minimum width=7.00cm, minimum height=1.20cm, text width=6.86cm, font=\footnotesize] (n12) at (5.00,-4.70) {};
+    \node[anchor=west, font=\footnotesize, text=black!85] at (5.16,-4.94) {图例};
+    \node[tconv, minimum width=0.20cm, minimum height=0.14cm, text width=0.06cm, font=\scriptsize] (n13) at (5.16,-5.09) {};
+    \node[anchor=west, font=\footnotesize, text=black!85] at (5.44,-5.20) {时间卷积 / 主干};
+    \node[ssm, minimum width=0.20cm, minimum height=0.14cm, text width=0.06cm, font=\scriptsize] (n14) at (8.56,-5.09) {};
+    \node[anchor=west, font=\footnotesize, text=black!85] at (8.84,-5.20) {节点状态空间（SSM）};
+    \node[attn, minimum width=0.20cm, minimum height=0.14cm, text width=0.06cm, font=\scriptsize] (n15) at (5.16,-5.41) {};
+    \node[anchor=west, font=\footnotesize, text=black!85] at (5.44,-5.52) {交叉注意力};
+    \node[gate, minimum width=0.20cm, minimum height=0.14cm, text width=0.06cm, font=\scriptsize] (n16) at (8.56,-5.41) {};
+    \node[anchor=west, font=\footnotesize, text=black!85] at (8.84,-5.52) {门控与融合};
+    \node[head, minimum width=0.20cm, minimum height=0.14cm, text width=0.06cm, font=\scriptsize] (n17) at (5.16,-5.73) {};
+    \node[anchor=west, font=\footnotesize, text=black!85] at (5.44,-5.84) {预测头};
+    \node[io, minimum width=0.20cm, minimum height=0.14cm, text width=0.06cm, font=\scriptsize] (n18) at (8.56,-5.73) {};
+    \node[anchor=west, font=\footnotesize, text=black!85] at (8.84,-5.84) {输入 / 输出};
+  \end{tikzpicture}}
+  \caption{SCF-Mamba 模型总体结构。输入为历史流量窗口与历史时间戳；主干为二级 SCI 交互树，每级合并前调用参数共享的双向交叉注意力；预测头将 96 步隐状态映射为 H 步输出。}
+  \label{fig:scfmamba-framework}
+\end{figure}
+
+% 由 SCF-Mamba 代码结构生成；请用 xelatex 编译（中文需 ctex 或 xeCJK）
+% 导言区需要：\usetikzlibrary{arrows.meta,positioning,calc} 以及下列颜色定义
+% \definecolor{tconvF}{HTML}{DEEBF7} \definecolor{tconvS}{HTML}{2E75B6}
+% \definecolor{ssmF}{HTML}{FCE4D6}   \definecolor{ssmS}{HTML}{C55A11}
+% \definecolor{attnF}{HTML}{E8E1F2}  \definecolor{attnS}{HTML}{7030A0}
+% \definecolor{gateF}{HTML}{E2EFDA}  \definecolor{gateS}{HTML}{548235}
+% \definecolor{headF}{HTML}{FFF2CC}  \definecolor{headS}{HTML}{BF9000}
+% \definecolor{calF}{HTML}{DAEEF3}   \definecolor{calS}{HTML}{31859B}
+% \definecolor{ioF}{HTML}{F2F2F2}    \definecolor{ioS}{HTML}{808080}
+\begin{figure}[t]
+  \centering
+  \resizebox{\textwidth}{!}{%
+  \begin{tikzpicture}[font=\small,>=Stealth,
+    bx/.style={draw, rounded corners=3pt, align=center, inner sep=3pt, line width=0.6pt},
+    tconv/.style={bx, fill=tconvF, draw=tconvS}, ssm/.style={bx, fill=ssmF, draw=ssmS},
+    attn/.style={bx, fill=attnF, draw=attnS}, gate/.style={bx, fill=gateF, draw=gateS},
+    head/.style={bx, fill=headF, draw=headS}, cal/.style={bx, fill=calF, draw=calS},
+    io/.style={bx, fill=ioF, draw=ioS}, grp/.style={draw, dashed, rounded corners=4pt, gray!70, line width=0.8pt},
+    arr/.style={-{Stealth[length=1.6mm]}, draw=black!75, line width=0.7pt},
+    darr/.style={arr, dashed}, carr/.style={arr, dashed, draw=calS}]
+    \node[grp, minimum width=12.20cm, minimum height=3.50cm, text width=12.06cm, font=\footnotesize] (n0) at (0.20,0.00) {};
+    \node[anchor=west, font=\small, text=black!85] at (0.40,-0.34) {(b) SCI 交互块（每级）：奇偶分流、卷积交互与节点状态空间调制};
+    \node[tconv, minimum width=1.50cm, minimum height=1.00cm, text width=1.36cm, font=\scriptsize] (n1) at (0.40,-0.90) {\textbf{输入}\\ Z：B$\times$T$\times$N};
+    \node[tconv, minimum width=1.80cm, minimum height=1.00cm, text width=1.66cm, font=\footnotesize] (n2) at (2.15,-0.90) {\textbf{奇偶分流}\\ 偶 E：T/2\\ 奇 O：T/2};
+    \node[tconv, minimum width=2.00cm, minimum height=1.00cm, text width=1.86cm, font=\footnotesize] (n3) at (4.20,-0.90) {\textbf{4 $\times$ 卷积支路}\\ 核 5 $\rightarrow$ 核 3};
+    \node[ssm, minimum width=2.00cm, minimum height=1.00cm, text width=1.86cm, font=\footnotesize] (n4) at (6.45,-0.90) {\textbf{尺度调制}\\ O $\odot$ exp($\Delta_{o}$)\\ E $\odot$ exp($\Delta_{e}$)};
+    \node[ssm, minimum width=2.00cm, minimum height=1.00cm, text width=1.86cm, font=\footnotesize] (n5) at (8.70,-0.90) {\textbf{增量更新}\\ E″ = E′ + $\Delta_{e}$\\ O″ = O′ $-$ $\Delta_{o}$};
+    \node[gate, minimum width=1.25cm, minimum height=1.00cm, text width=1.11cm, font=\scriptsize] (n6) at (10.95,-0.90) {\textbf{输出}\\ Z′：B$\times$T$\times$N};
+    \draw[arr] (1.90,-1.40) -- (2.15,-1.40);
+    \draw[arr] (3.95,-1.40) -- (4.20,-1.40);
+    \draw[arr] (6.20,-1.40) -- (6.45,-1.40);
+    \draw[arr] (8.45,-1.40) -- (8.70,-1.40);
+    \draw[arr] (10.70,-1.40) -- (10.95,-1.40);
+    \node[anchor=west, font=\footnotesize, text=black!85] at (0.40,-2.32) {E′ = E $\odot$ exp(NM(Con$v_{ψe}$(O)))，O′ = O $\odot$ exp(NM(Con$v_{ψo}$(E)))};
+    \node[anchor=west, font=\footnotesize, text=black!85] at (0.40,-2.62) {E″ = E′ + NM(Con$v_{φe}$(O′))，O″ = O′ $-$ NM(Con$v_{φo}$(E′))};
+    \node[anchor=west, font=\footnotesize, text=black!85] at (0.40,-2.92) {Conv：ReplicationPad1d(3,3) $\rightarrow$ Conv1d(核5) $\rightarrow$ LeakyReLU $\rightarrow$ Dropout(0.5) $\rightarrow$ Conv1d(核3) $\rightarrow$ Tanh；隐藏宽度 $\lfloor$N/16$\rfloor$；NM 为 NodeMamba。};
+    \node[anchor=west, font=\footnotesize, text=black!85] at (0.40,-3.22) {注：一级块 T = 96、二级块 T = 48；每级合并前调用共享交叉注意力，输出按原时间索引交错还原为 T 步。};
+    \node[grp, minimum width=12.20cm, minimum height=3.50cm, text width=12.06cm, font=\footnotesize] (n7) at (0.20,-3.80) {};
+    \node[anchor=west, font=\small, text=black!85] at (0.40,-4.14) {(c) NodeMamba 块：沿节点轴的双向选择性状态空间（SSM）};
+    \node[ssm, minimum width=1.70cm, minimum height=1.00cm, text width=1.56cm, font=\footnotesize] (n8) at (0.40,-4.60) {\textbf{节点特征}\\ F：B$\times$N$\times$L\\ L = T/2};
+    \node[ssm, minimum width=1.50cm, minimum height=1.00cm, text width=1.36cm, font=\footnotesize] (n9) at (2.35,-4.60) {\textbf{线性投影}\\ L $\rightarrow$ 128};
+    \node[draw, circle, fill=white, inner sep=1pt, minimum size=0.32cm] (n10) at (4.20,-5.10) {$+$};
+    \node[anchor=center, font=\footnotesize, text=black!85] at (4.20,-4.48) {+ 节点嵌入 N$\times$128};
+    \draw[arr] (4.20,-4.50) -- (4.20,-4.92);
+    \node[ssm, minimum width=1.90cm, minimum height=1.00cm, text width=1.76cm, font=\footnotesize] (n11) at (4.60,-4.60) {\textbf{拼接日历特征}\\ cat(128, 64)\\ $\rightarrow$ 192};
+    \node[ssm, minimum width=1.50cm, minimum height=1.00cm, text width=1.36cm, font=\footnotesize] (n12) at (6.75,-4.60) {\textbf{线性投影}\\ 192 $\rightarrow$ 128};
+    \node[ssm, minimum width=3.70cm, minimum height=1.20cm, text width=3.56cm, font=\footnotesize] (n13) at (8.50,-4.50) {\textbf{双向 Mamba（沿节点轴扫描）}\\ 正向 + 反向翻转，输出相加\\ d\_state = 32，d\_conv = 2};
+    \draw[arr] (2.10,-5.10) -- (2.35,-5.10);
+    \draw[arr] (3.85,-5.10) -- (4.10,-5.10);
+    \draw[arr] (4.36,-5.10) -- (4.61,-5.10);
+    \draw[arr] (6.50,-5.10) -- (6.75,-5.10);
+    \draw[arr] (8.25,-5.10) -- (8.50,-5.10);
+    \draw[arr] (10.35,-5.70) -- (10.35,-5.86) -- (2.50,-5.86) -- (2.50,-6.02);
+    \node[ssm, minimum width=4.20cm, minimum height=1.00cm, text width=4.06cm, font=\scriptsize] (n14) at (0.40,-6.04) {\textbf{前馈 + 门控残差}\\ LayerNorm $\rightarrow$ 1$\times$1 Conv + GELU\\ Dropout(0.1) $\rightarrow$ 1$\times$1 Conv\\ Linear(128 $\rightarrow$ L)，F + tanh(g)$\cdot$$\Delta$F};
+    \node[ssm, minimum width=7.20cm, minimum height=1.00cm, text width=7.06cm, font=\scriptsize] (n15) at (5.00,-6.04) {\textbf{状态递推（沿节点索引 k）}\\ $h_{k}$ = exp($\Delta_{k}$ $\odot$ A) $\odot$ $h_{k-1}$ + $\Delta_{k}$ $\odot$ (B $x_{k}$)\\ $y_{k}$ = ($C_{k}$ $\odot$ $h_{k}$ + D $\odot$ $x_{k}$) $\odot$ silu($G_{k}$)，A = $-$exp(A\_log)};
+    \node[anchor=west, font=\footnotesize, text=black!85] at (0.40,-7.24) {注：双向分支分别沿节点维正序与逆序扫描（逆序分支翻转后再翻转回来）；日历嵌入在每个 NodeMamba 内经 Linear(192$\rightarrow$128) 注入。};
+    \node[grp, minimum width=12.20cm, minimum height=3.50cm, text width=12.06cm, font=\footnotesize] (n16) at (0.20,-7.60) {};
+    \node[anchor=west, font=\small, text=black!85] at (0.40,-7.94) {(d) 共享双向交叉注意力融合（每级合并前调用，参数共享）};
+    \node[attn, minimum width=2.00cm, minimum height=1.00cm, text width=1.86cm, font=\scriptsize] (n17) at (0.40,-8.50) {\textbf{两路输入}\\ 偶序列 E：B$\times$$L_{e}$$\times$N\\ 奇序列 O：B$\times$$L_{o}$$\times$N};
+    \node[attn, minimum width=2.20cm, minimum height=1.00cm, text width=2.06cm, font=\scriptsize] (n18) at (2.65,-8.50) {\textbf{线性投影 + 位置编码}\\ Linear(N $\rightarrow$ 64)\\ + 正弦 PE（原始索引）};
+    \node[attn, minimum width=2.30cm, minimum height=1.20cm, text width=2.16cm, font=\footnotesize] (n19) at (5.10,-8.40) {\textbf{4 头交叉注意力}\\ Q = E, K = V = O\\ Q = O, K = V = E};
+    \node[gate, minimum width=2.20cm, minimum height=1.00cm, text width=2.06cm, font=\scriptsize] (n20) at (7.65,-8.50) {\textbf{输出投影 + 残差}\\ Linear(64 $\rightarrow$ N)\\ E + tanh($g_{E}$) $\cdot$ $\Delta$E\\ O + tanh($g_{O}$) $\cdot$ $\Delta$O};
+    \node[attn, minimum width=2.00cm, minimum height=1.00cm, text width=1.86cm, font=\scriptsize] (n21) at (10.20,-8.50) {\textbf{输出}\\ E′：B$\times$$L_{e}$$\times$N\\ O′：B$\times$$L_{o}$$\times$N};
+    \draw[arr] (2.40,-9.00) -- (2.65,-9.00);
+    \draw[arr] (4.85,-9.00) -- (5.10,-9.00);
+    \draw[arr] (7.40,-9.00) -- (7.65,-9.00);
+    \draw[arr] (9.85,-9.00) -- (10.10,-9.00);
+    \node[anchor=west, font=\footnotesize, text=black!85] at (0.40,-10.00) {$\Delta$E = $W_{o}$ $\cdot$ softmax($Q_{E}$ $K_{O}$\textasciicircum{}\{$\top$\} / $\surd$$d_{h}$) $V_{O}$，$\Delta$O = $W_{o}$ $\cdot$ softmax($Q_{O}$ $K_{E}$\textasciicircum{}\{$\top$\} / $\surd$$d_{h}$) $V_{E}$};
+    \node[anchor=west, font=\footnotesize, text=black!85] at (0.40,-10.32) {token 为时间步（长度 $L_{e}$ / $L_{o}$），特征维为节点数 N；位置编码按原始 96 步索引取值。};
+    \node[anchor=west, font=\footnotesize, text=black!85] at (0.40,-10.62) {该模块只沿时间索引交换信息、不跨节点传播；跨节点建模由卷积支路与 NodeMamba 承担。};
+  \end{tikzpicture}}
+  \caption{SCF-Mamba 关键模块结构。(b) SCI 交互块；(c) NodeMamba 块（沿节点轴的双向选择性状态空间）；(d) 共享双向交叉注意力融合模块。}
+  \label{fig:scfmamba-modules}
+\end{figure}

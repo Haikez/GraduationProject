@@ -1,0 +1,207 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8">
+<title>SCF-Mamba 论文插图预览</title>
+<style>body{font-family:"Microsoft YaHei",SimSun,serif;margin:24px;background:#fafafa;color:#222}
+h1{font-size:20px}h2{font-size:16px;margin-top:28px}.cap{font-size:13px;color:#555;margin:6px 0 14px}
+.fig{background:#fff;border:1px solid #ddd;padding:12px;margin-bottom:18px;overflow:auto}
+.note{font-size:13px;line-height:1.8;background:#fff;border-left:3px solid #2E75B6;padding:10px 14px}
+@media print{body{background:#fff;margin:0}.note{display:none}.fig{border:none;page-break-after:always}
+@page{size:A4 landscape;margin:10mm}}</style></head><body>
+<h1>SCF-Mamba 框架图预览（打印为 PDF：Ctrl+P → 另存为 PDF → A4 横向）</h1>
+<div class="note">本页内嵌矢量 SVG，缩放不失真；打印时已设置“每页一图”。<br>
+插入 Word / WPS：插入 → 图片 → 选择 <b>SCFMamba_framework.svg</b>、<b>SCFMamba_modules.svg</b>（Word 2016 及 WPS 新版支持 SVG 矢量）。<br>
+插入 LaTeX：使用 <b>SCFMamba_figures_tikz.tex</b>（xelatex + ctex）；或先将 SVG 转为 PDF 再 includegraphics。</div>
+<h2>图 1　SCF-Mamba 模型总体结构</h2><div class="fig">
+<svg xmlns="http://www.w3.org/2000/svg" width="1220" height="620" viewBox="0 0 1220 620">
+<title>SCF-Mamba 总体结构</title><desc>SCF-Mamba 交通流预测模型总体框架与数据流</desc>
+<style>text{font-family:'Times New Roman','SimSun','Songti SC','Microsoft YaHei','Cambria Math','Segoe UI Symbol',serif;}</style>
+<defs><marker id="ah" markerWidth="9" markerHeight="7" refX="8.5" refY="3.5" orient="auto"><path d="M0,0 L9,3.5 L0,7 z" fill="#404040"/></marker><marker id="ac" markerWidth="9" markerHeight="7" refX="8.5" refY="3.5" orient="auto"><path d="M0,0 L9,3.5 L0,7 z" fill="#31859B"/></marker></defs>
+<rect x="0" y="0" width="1220" height="620" fill="#FFFFFF"/>
+<path d="M 208 199 L 208 345 L 845 345 L 845 218" fill="none" stroke="#404040" stroke-width="1.6" stroke-dasharray="8 6" marker-end="url(#ah)"/>
+<rect x="20" y="130" width="140" height="138" rx="8" fill="#F2F2F2" stroke="#808080" stroke-width="1.4"/>
+<rect x="105" y="20" width="160" height="76" rx="8" fill="#F2F2F2" stroke="#808080" stroke-width="1.4"/>
+<path d="M 185 96 L 185 181" fill="none" stroke="#404040" stroke-width="1.6" marker-end="url(#ah)"/>
+<circle cx="185" cy="199" r="16" fill="#F2F2F2" stroke="#808080" stroke-width="1.4"/>
+<path d="M 177.0 199 L 193.0 199 M 185 191.0 L 185 207.0" stroke="#1A1A1A" stroke-width="1.7" stroke-linecap="round"/>
+<path d="M 160 199 L 167 199" fill="none" stroke="#404040" stroke-width="1.6" marker-end="url(#ah)"/>
+<path d="M 201 199 L 213 199" fill="none" stroke="#404040" stroke-width="1.6" marker-end="url(#ah)"/>
+<rect x="215" y="118" width="170" height="162" rx="8" fill="#DEEBF7" stroke="#2E75B6" stroke-width="1.4"/>
+<rect x="415" y="100" width="180" height="90" rx="8" fill="#DEEBF7" stroke="#2E75B6" stroke-width="1.4"/>
+<rect x="415" y="208" width="180" height="90" rx="8" fill="#DEEBF7" stroke="#2E75B6" stroke-width="1.4"/>
+<path d="M 385 160 Q 400 145 415 145" fill="none" stroke="#404040" stroke-width="1.6" marker-end="url(#ah)"/>
+<path d="M 385 240 Q 400 253 415 253" fill="none" stroke="#404040" stroke-width="1.6" marker-end="url(#ah)"/>
+<rect x="625" y="118" width="190" height="162" rx="8" fill="#E8E1F2" stroke="#7030A0" stroke-width="1.4"/>
+<path d="M 595 145 Q 610 175 625 175" fill="none" stroke="#404040" stroke-width="1.6" marker-end="url(#ah)"/>
+<path d="M 595 253 Q 610 223 625 223" fill="none" stroke="#404040" stroke-width="1.6" marker-end="url(#ah)"/>
+<circle cx="845" cy="199" r="16" fill="#F2F2F2" stroke="#808080" stroke-width="1.4"/>
+<path d="M 837.0 199 L 853.0 199 M 845 191.0 L 845 207.0" stroke="#1A1A1A" stroke-width="1.7" stroke-linecap="round"/>
+<path d="M 815 199 L 827 199" fill="none" stroke="#404040" stroke-width="1.6" marker-end="url(#ah)"/>
+<path d="M 861 199 L 878 199" fill="none" stroke="#404040" stroke-width="1.6" marker-end="url(#ah)"/>
+<rect x="880" y="130" width="170" height="138" rx="8" fill="#FFF2CC" stroke="#BF9000" stroke-width="1.4"/>
+<path d="M 1050 199 L 1078 199" fill="none" stroke="#404040" stroke-width="1.6" marker-end="url(#ah)"/>
+<rect x="1080" y="145" width="120" height="108" rx="8" fill="#F2F2F2" stroke="#808080" stroke-width="1.4"/>
+<rect x="20" y="460" width="170" height="118" rx="8" fill="#F2F2F2" stroke="#808080" stroke-width="1.4"/>
+<path d="M 190 519 L 228 519" fill="none" stroke="#404040" stroke-width="1.6" marker-end="url(#ah)"/>
+<rect x="230" y="460" width="230" height="118" rx="8" fill="#DAEEF3" stroke="#31859B" stroke-width="1.4"/>
+<path d="M 345 460 L 345 286" fill="none" stroke="#31859B" stroke-width="1.6" stroke-dasharray="8 6" marker-end="url(#ac)"/>
+<rect x="500" y="470" width="700" height="120" rx="8" fill="#FFFFFF" stroke="#7F7F7F" stroke-width="1.2"/>
+<rect x="516" y="509" width="20" height="14" rx="2" fill="#DEEBF7" stroke="#2E75B6" stroke-width="1.4"/>
+<rect x="856" y="509" width="20" height="14" rx="2" fill="#FCE4D6" stroke="#C55A11" stroke-width="1.4"/>
+<rect x="516" y="541" width="20" height="14" rx="2" fill="#E8E1F2" stroke="#7030A0" stroke-width="1.4"/>
+<rect x="856" y="541" width="20" height="14" rx="2" fill="#E2EFDA" stroke="#548235" stroke-width="1.4"/>
+<rect x="516" y="573" width="20" height="14" rx="2" fill="#FFF2CC" stroke="#BF9000" stroke-width="1.4"/>
+<rect x="856" y="573" width="20" height="14" rx="2" fill="#F2F2F2" stroke="#808080" stroke-width="1.4"/>
+<text text-anchor="middle" fill="#595959"><tspan x="540" y="332" font-size="16.0">残差连接：主干输出 + 位置编码后的输入</tspan></text>
+<text text-anchor="middle" fill="#1A1A1A" font-weight="bold"><tspan x="90" y="164.17" font-size="20.0">输入</tspan></text>
+<text text-anchor="middle" fill="#1A1A1A"><tspan x="90" y="193.16799999999998" font-size="17.0">历史流量 X</tspan></text>
+<text text-anchor="middle" fill="#1A1A1A"><tspan x="90" y="220.70799999999997" font-size="17.0">B×96×N</tspan></text>
+<text text-anchor="middle" fill="#1A1A1A"><tspan x="90" y="248.248" font-size="17.0">（仅流量通道）</tspan></text>
+<text text-anchor="middle" fill="#1A1A1A" font-weight="bold"><tspan x="185" y="50.872" font-size="18.0">节点维位置编码</tspan></text>
+<text text-anchor="middle" fill="#1A1A1A"><tspan x="185" y="77.76400000000001" font-size="16.0">96×N（固定）</tspan></text>
+<text text-anchor="middle" fill="#12385A" font-weight="bold"><tspan x="300" y="164.17" font-size="20.0">SCI 交互块</tspan></text>
+<text text-anchor="middle" fill="#12385A"><tspan x="300" y="193.16799999999998" font-size="17.0">一级 · T = 96</tspan></text>
+<text text-anchor="middle" fill="#12385A"><tspan x="300" y="220.70799999999997" font-size="17.0">奇偶分流 + 卷积</tspan></text>
+<text text-anchor="middle" fill="#12385A"><tspan x="300" y="248.248" font-size="17.0">4 × NodeMamba</tspan></text>
+<text text-anchor="middle" fill="#12385A" font-weight="bold"><tspan x="505" y="137.386" font-size="19.0">二级 SCI 块</tspan></text>
+<text text-anchor="middle" fill="#12385A"><tspan x="505" y="165.898" font-size="17.0">偶支 · T = 48</tspan></text>
+<text text-anchor="middle" fill="#12385A" font-weight="bold"><tspan x="505" y="245.386" font-size="19.0">二级 SCI 块</tspan></text>
+<text text-anchor="middle" fill="#12385A"><tspan x="505" y="273.898" font-size="17.0">奇支 · T = 48</tspan></text>
+<text text-anchor="middle" fill="#3F1A5E" font-weight="bold"><tspan x="720" y="163.522" font-size="18.0">共享双向交叉注意力</tspan></text>
+<text text-anchor="middle" fill="#3F1A5E"><tspan x="720" y="191.54799999999997" font-size="17.0">4 头 · tanh 门控</tspan></text>
+<text text-anchor="middle" fill="#3F1A5E"><tspan x="720" y="219.08799999999997" font-size="17.0">每级合并前调用</tspan></text>
+<text text-anchor="middle" fill="#3F1A5E"><tspan x="720" y="246.62799999999996" font-size="17.0">参数共享 ×3</tspan></text>
+<text text-anchor="middle" fill="#6B5000" font-weight="bold"><tspan x="965" y="166.6" font-size="20.0">多步预测头</tspan></text>
+<text text-anchor="middle" fill="#6B5000"><tspan x="965" y="194.464" font-size="16.0">1×1 Conv1d</tspan></text>
+<text text-anchor="middle" fill="#6B5000"><tspan x="965" y="220.38400000000001" font-size="16.0">96 → H</tspan></text>
+<text text-anchor="middle" fill="#6B5000"><tspan x="965" y="246.30400000000003" font-size="16.0">各节点共享权重</tspan></text>
+<text text-anchor="middle" fill="#1A1A1A" font-weight="bold"><tspan x="1140" y="177.94" font-size="20.0">输出</tspan></text>
+<text text-anchor="middle" fill="#1A1A1A"><tspan x="1140" y="206.938" font-size="17.0">Ŷ</tspan></text>
+<text text-anchor="middle" fill="#1A1A1A"><tspan x="1140" y="234.47799999999998" font-size="17.0">B×H×N</tspan></text>
+<text text-anchor="middle" fill="#595959"><tspan x="680" y="318" font-size="16.0">交叉注意力输出按原时间索引交错合并后，与位置编码后的输入做残差相加</tspan></text>
+<text text-anchor="middle" fill="#1A1A1A" font-weight="bold"><tspan x="105" y="486.6" font-size="20.0">历史时间戳</tspan></text>
+<text text-anchor="middle" fill="#1A1A1A"><tspan x="105" y="514.464" font-size="16.0">S：B×96×2</tspan></text>
+<text text-anchor="middle" fill="#1A1A1A"><tspan x="105" y="540.384" font-size="16.0">（日内/288）</tspan></text>
+<text text-anchor="middle" fill="#1A1A1A"><tspan x="105" y="566.304" font-size="16.0">（七日/7）</tspan></text>
+<text text-anchor="middle" fill="#12414F" font-weight="bold"><tspan x="345" y="497.93999999999994" font-size="20.0">日历嵌入</tspan></text>
+<text text-anchor="middle" fill="#12414F"><tspan x="345" y="526.9379999999999" font-size="17.0">288×32 + 7×32</tspan></text>
+<text text-anchor="middle" fill="#12414F"><tspan x="345" y="554.4779999999998" font-size="17.0">c：B×64</tspan></text>
+<text text-anchor="start" fill="#1F6B7A"><tspan x="360" y="405" font-size="16.0">日历条件 c：注入每个 NodeMamba 块</tspan></text>
+<text text-anchor="start" fill="#333333" font-weight="bold"><tspan x="516" y="494" font-size="17.0">图例</tspan></text>
+<text text-anchor="start" fill="#111111"><tspan x="544" y="520" font-size="16.0">时间卷积 / 主干</tspan></text>
+<text text-anchor="start" fill="#111111"><tspan x="884" y="520" font-size="16.0">节点状态空间（SSM）</tspan></text>
+<text text-anchor="start" fill="#111111"><tspan x="544" y="552" font-size="16.0">交叉注意力</tspan></text>
+<text text-anchor="start" fill="#111111"><tspan x="884" y="552" font-size="16.0">门控与融合</tspan></text>
+<text text-anchor="start" fill="#111111"><tspan x="544" y="584" font-size="16.0">预测头</tspan></text>
+<text text-anchor="start" fill="#111111"><tspan x="884" y="584" font-size="16.0">输入 / 输出</tspan></text>
+</svg></div>
+<div class="cap">图 1　SCF-Mamba 模型总体结构。输入为 96 步历史流量窗口与历史时间戳；主干为二级 SCI 交互树，每级合并前调用共享的双向交叉注意力；预测头将 96 步隐状态映射为 H 步输出。</div>
+<h2>图 2　关键模块结构</h2><div class="fig">
+<svg xmlns="http://www.w3.org/2000/svg" width="1260" height="1110" viewBox="0 0 1260 1110">
+<title>SCF-Mamba 模块细节</title><desc>SCI 交互块、NodeMamba 块与共享双向交叉注意力模块</desc>
+<style>text{font-family:'Times New Roman','SimSun','Songti SC','Microsoft YaHei','Cambria Math','Segoe UI Symbol',serif;}</style>
+<defs><marker id="ah" markerWidth="9" markerHeight="7" refX="8.5" refY="3.5" orient="auto"><path d="M0,0 L9,3.5 L0,7 z" fill="#404040"/></marker><marker id="ac" markerWidth="9" markerHeight="7" refX="8.5" refY="3.5" orient="auto"><path d="M0,0 L9,3.5 L0,7 z" fill="#31859B"/></marker></defs>
+<rect x="0" y="0" width="1260" height="1110" fill="#FFFFFF"/>
+<rect x="20" y="0" width="1220" height="350" rx="12" fill="#FFFFFF" stroke="#7F7F7F" stroke-width="1.4" stroke-dasharray="8 6"/>
+<rect x="40" y="90" width="150" height="100" rx="8" fill="#DEEBF7" stroke="#2E75B6" stroke-width="1.4"/>
+<rect x="215" y="90" width="180" height="100" rx="8" fill="#DEEBF7" stroke="#2E75B6" stroke-width="1.4"/>
+<rect x="420" y="90" width="200" height="100" rx="8" fill="#DEEBF7" stroke="#2E75B6" stroke-width="1.4"/>
+<rect x="645" y="90" width="200" height="100" rx="8" fill="#FCE4D6" stroke="#C55A11" stroke-width="1.4"/>
+<rect x="870" y="90" width="200" height="100" rx="8" fill="#FCE4D6" stroke="#C55A11" stroke-width="1.4"/>
+<rect x="1095" y="90" width="125" height="100" rx="8" fill="#E2EFDA" stroke="#548235" stroke-width="1.4"/>
+<path d="M 190 140 L 215 140" fill="none" stroke="#404040" stroke-width="1.6" marker-end="url(#ah)"/>
+<path d="M 395 140 L 420 140" fill="none" stroke="#404040" stroke-width="1.6" marker-end="url(#ah)"/>
+<path d="M 620 140 L 645 140" fill="none" stroke="#404040" stroke-width="1.6" marker-end="url(#ah)"/>
+<path d="M 845 140 L 870 140" fill="none" stroke="#404040" stroke-width="1.6" marker-end="url(#ah)"/>
+<path d="M 1070 140 L 1095 140" fill="none" stroke="#404040" stroke-width="1.6" marker-end="url(#ah)"/>
+<rect x="20" y="380" width="1220" height="350" rx="12" fill="#FFFFFF" stroke="#7F7F7F" stroke-width="1.4" stroke-dasharray="8 6"/>
+<rect x="40" y="460" width="170" height="100" rx="8" fill="#FCE4D6" stroke="#C55A11" stroke-width="1.4"/>
+<rect x="235" y="460" width="150" height="100" rx="8" fill="#FCE4D6" stroke="#C55A11" stroke-width="1.4"/>
+<circle cx="420" cy="510" r="16" fill="#FCE4D6" stroke="#C55A11" stroke-width="1.4"/>
+<path d="M 412.0 510 L 428.0 510 M 420 502.0 L 420 518.0" stroke="#7A3305" stroke-width="1.7" stroke-linecap="round"/>
+<path d="M 420 450 L 420 492" fill="none" stroke="#404040" stroke-width="1.6" marker-end="url(#ah)"/>
+<rect x="460" y="460" width="190" height="100" rx="8" fill="#FCE4D6" stroke="#C55A11" stroke-width="1.4"/>
+<rect x="675" y="460" width="150" height="100" rx="8" fill="#FCE4D6" stroke="#C55A11" stroke-width="1.4"/>
+<rect x="850" y="450" width="370" height="120" rx="8" fill="#FCE4D6" stroke="#C55A11" stroke-width="1.4"/>
+<path d="M 210 510 L 235 510" fill="none" stroke="#404040" stroke-width="1.6" marker-end="url(#ah)"/>
+<path d="M 385 510 L 410 510" fill="none" stroke="#404040" stroke-width="1.6" marker-end="url(#ah)"/>
+<path d="M 436 510 L 461 510" fill="none" stroke="#404040" stroke-width="1.6" marker-end="url(#ah)"/>
+<path d="M 650 510 L 675 510" fill="none" stroke="#404040" stroke-width="1.6" marker-end="url(#ah)"/>
+<path d="M 825 510 L 850 510" fill="none" stroke="#404040" stroke-width="1.6" marker-end="url(#ah)"/>
+<path d="M 1035 570 L 1035 586 L 250 586 L 250 602" fill="none" stroke="#404040" stroke-width="1.6" marker-end="url(#ah)"/>
+<rect x="40" y="604" width="420" height="100" rx="8" fill="#FCE4D6" stroke="#C55A11" stroke-width="1.4"/>
+<rect x="500" y="604" width="720" height="100" rx="8" fill="#FCE4D6" stroke="#C55A11" stroke-width="1.4"/>
+<rect x="20" y="760" width="1220" height="350" rx="12" fill="#FFFFFF" stroke="#7F7F7F" stroke-width="1.4" stroke-dasharray="8 6"/>
+<rect x="40" y="850" width="200" height="100" rx="8" fill="#E8E1F2" stroke="#7030A0" stroke-width="1.4"/>
+<rect x="265" y="850" width="220" height="100" rx="8" fill="#E8E1F2" stroke="#7030A0" stroke-width="1.4"/>
+<rect x="510" y="840" width="230" height="120" rx="8" fill="#E8E1F2" stroke="#7030A0" stroke-width="1.4"/>
+<rect x="765" y="850" width="220" height="100" rx="8" fill="#E2EFDA" stroke="#548235" stroke-width="1.4"/>
+<rect x="1020" y="850" width="200" height="100" rx="8" fill="#E8E1F2" stroke="#7030A0" stroke-width="1.4"/>
+<path d="M 240 900 L 265 900" fill="none" stroke="#404040" stroke-width="1.6" marker-end="url(#ah)"/>
+<path d="M 485 900 L 510 900" fill="none" stroke="#404040" stroke-width="1.6" marker-end="url(#ah)"/>
+<path d="M 740 900 L 765 900" fill="none" stroke="#404040" stroke-width="1.6" marker-end="url(#ah)"/>
+<path d="M 985 900 L 1010 900" fill="none" stroke="#404040" stroke-width="1.6" marker-end="url(#ah)"/>
+<text text-anchor="start" fill="#3F4A56" font-weight="bold"><tspan x="40" y="34" font-size="20.0">(b) SCI 交互块（每级）：奇偶分流、卷积交互与节点状态空间调制</tspan></text>
+<text text-anchor="middle" fill="#12385A" font-weight="bold"><tspan x="115" y="133.52" font-size="20.0">输入</tspan></text>
+<text text-anchor="middle" fill="#12385A"><tspan x="115" y="161.38400000000001" font-size="16.0">Z：B×T×N</tspan></text>
+<text text-anchor="middle" fill="#12385A" font-weight="bold"><tspan x="305" y="118.94" font-size="20.0">奇偶分流</tspan></text>
+<text text-anchor="middle" fill="#12385A"><tspan x="305" y="147.938" font-size="17.0">偶 E：T/2</tspan></text>
+<text text-anchor="middle" fill="#12385A"><tspan x="305" y="175.47799999999998" font-size="17.0">奇 O：T/2</tspan></text>
+<text text-anchor="middle" fill="#12385A" font-weight="bold"><tspan x="520" y="132.71" font-size="20.0">4 × 卷积支路</tspan></text>
+<text text-anchor="middle" fill="#12385A"><tspan x="520" y="161.708" font-size="17.0">核 5 → 核 3</tspan></text>
+<text text-anchor="middle" fill="#7A3305" font-weight="bold"><tspan x="745" y="118.94" font-size="20.0">尺度调制</tspan></text>
+<text text-anchor="middle" fill="#7A3305"><tspan x="745" y="147.938" font-size="17.0">O ⊙ exp(Δ</tspan><tspan dy="3.40" font-size="12.2">o</tspan><tspan dy="-3.40" font-size="17.0">)</tspan></text>
+<text text-anchor="middle" fill="#7A3305"><tspan x="745" y="175.47799999999998" font-size="17.0">E ⊙ exp(Δ</tspan><tspan dy="3.40" font-size="12.2">e</tspan><tspan dy="-3.40" font-size="17.0">)</tspan></text>
+<text text-anchor="middle" fill="#7A3305" font-weight="bold"><tspan x="970" y="118.94" font-size="20.0">增量更新</tspan></text>
+<text text-anchor="middle" fill="#7A3305"><tspan x="970" y="147.938" font-size="17.0">E″ = E′ + Δ</tspan><tspan dy="3.40" font-size="12.2">e</tspan></text>
+<text text-anchor="middle" fill="#7A3305"><tspan x="970" y="175.47799999999998" font-size="17.0">O″ = O′ − Δ</tspan><tspan dy="3.40" font-size="12.2">o</tspan></text>
+<text text-anchor="middle" fill="#2C4A18" font-weight="bold"><tspan x="1157.5" y="133.52" font-size="20.0">输出</tspan></text>
+<text text-anchor="middle" fill="#2C4A18"><tspan x="1157.5" y="161.38400000000001" font-size="16.0">Z′：B×T×N</tspan></text>
+<text text-anchor="start" fill="#111111"><tspan x="40" y="232" font-size="17.0">E′ = E ⊙ exp(NM(Conv</tspan><tspan dy="3.40" font-size="12.2">ψe</tspan><tspan dy="-3.40" font-size="17.0">(O)))，O′ = O ⊙ exp(NM(Conv</tspan><tspan dy="3.40" font-size="12.2">ψo</tspan><tspan dy="-3.40" font-size="17.0">(E)))</tspan></text>
+<text text-anchor="start" fill="#111111"><tspan x="40" y="262" font-size="17.0">E″ = E′ + NM(Conv</tspan><tspan dy="3.40" font-size="12.2">φe</tspan><tspan dy="-3.40" font-size="17.0">(O′))，O″ = O′ − NM(Conv</tspan><tspan dy="3.40" font-size="12.2">φo</tspan><tspan dy="-3.40" font-size="17.0">(E′))</tspan></text>
+<text text-anchor="start" fill="#111111"><tspan x="40" y="292" font-size="16.0">Conv：ReplicationPad1d(3,3) → Conv1d(核5) → LeakyReLU → Dropout(0.5) → Conv1d(核3) → Tanh；隐藏宽度 ⌊N/16⌋；NM 为 NodeMamba。</tspan></text>
+<text text-anchor="start" fill="#111111"><tspan x="40" y="322" font-size="16.0">注：一级块 T = 96、二级块 T = 48；每级合并前调用共享交叉注意力，输出按原时间索引交错还原为 T 步。</tspan></text>
+<text text-anchor="start" fill="#3F4A56" font-weight="bold"><tspan x="40" y="414" font-size="20.0">(c) NodeMamba 块：沿节点轴的双向选择性状态空间（SSM）</tspan></text>
+<text text-anchor="middle" fill="#7A3305" font-weight="bold"><tspan x="125" y="488.93999999999994" font-size="20.0">节点特征</tspan></text>
+<text text-anchor="middle" fill="#7A3305"><tspan x="125" y="517.9379999999999" font-size="17.0">F：B×N×L</tspan></text>
+<text text-anchor="middle" fill="#7A3305"><tspan x="125" y="545.4779999999998" font-size="17.0">L = T/2</tspan></text>
+<text text-anchor="middle" fill="#7A3305" font-weight="bold"><tspan x="310" y="502.7099999999999" font-size="20.0">线性投影</tspan></text>
+<text text-anchor="middle" fill="#7A3305"><tspan x="310" y="531.7079999999999" font-size="17.0">L → 128</tspan></text>
+<text text-anchor="middle" fill="#111111"><tspan x="420" y="448" font-size="16.0">+ 节点嵌入 N×128</tspan></text>
+<text text-anchor="middle" fill="#7A3305" font-weight="bold"><tspan x="555" y="488.93999999999994" font-size="20.0">拼接日历特征</tspan></text>
+<text text-anchor="middle" fill="#7A3305"><tspan x="555" y="517.9379999999999" font-size="17.0">cat(128, 64)</tspan></text>
+<text text-anchor="middle" fill="#7A3305"><tspan x="555" y="545.4779999999998" font-size="17.0">→ 192</tspan></text>
+<text text-anchor="middle" fill="#7A3305" font-weight="bold"><tspan x="750" y="502.7099999999999" font-size="20.0">线性投影</tspan></text>
+<text text-anchor="middle" fill="#7A3305"><tspan x="750" y="531.7079999999999" font-size="17.0">192 → 128</tspan></text>
+<text text-anchor="middle" fill="#7A3305" font-weight="bold"><tspan x="1035" y="488.93999999999994" font-size="20.0">双向 Mamba（沿节点轴扫描）</tspan></text>
+<text text-anchor="middle" fill="#7A3305"><tspan x="1035" y="517.9379999999999" font-size="17.0">正向 + 反向翻转，输出相加</tspan></text>
+<text text-anchor="middle" fill="#7A3305"><tspan x="1035" y="545.4779999999998" font-size="17.0">d_state = 32，d_conv = 2</tspan></text>
+<text text-anchor="middle" fill="#7A3305" font-weight="bold"><tspan x="250" y="621.5999999999999" font-size="20.0">前馈 + 门控残差</tspan></text>
+<text text-anchor="middle" fill="#7A3305"><tspan x="250" y="649.4639999999999" font-size="16.0">LayerNorm → 1×1 Conv + GELU</tspan></text>
+<text text-anchor="middle" fill="#7A3305"><tspan x="250" y="675.3839999999999" font-size="16.0">Dropout(0.1) → 1×1 Conv</tspan></text>
+<text text-anchor="middle" fill="#7A3305"><tspan x="250" y="701.3039999999999" font-size="16.0">Linear(128 → L)，F + tanh(g)·ΔF</tspan></text>
+<text text-anchor="middle" fill="#7A3305" font-weight="bold"><tspan x="860" y="634.56" font-size="20.0">状态递推（沿节点索引 k）</tspan></text>
+<text text-anchor="middle" fill="#7A3305"><tspan x="860" y="662.424" font-size="16.0">h</tspan><tspan dy="3.20" font-size="11.5">k</tspan><tspan dy="-3.20" font-size="16.0"> = exp(Δ</tspan><tspan dy="3.20" font-size="11.5">k</tspan><tspan dy="-3.20" font-size="16.0"> ⊙ A) ⊙ h</tspan><tspan dy="3.20" font-size="11.5">k−1</tspan><tspan dy="-3.20" font-size="16.0"> + Δ</tspan><tspan dy="3.20" font-size="11.5">k</tspan><tspan dy="-3.20" font-size="16.0"> ⊙ (B x</tspan><tspan dy="3.20" font-size="11.5">k</tspan><tspan dy="-3.20" font-size="16.0">)</tspan></text>
+<text text-anchor="middle" fill="#7A3305"><tspan x="860" y="688.3439999999999" font-size="16.0">y</tspan><tspan dy="3.20" font-size="11.5">k</tspan><tspan dy="-3.20" font-size="16.0"> = (C</tspan><tspan dy="3.20" font-size="11.5">k</tspan><tspan dy="-3.20" font-size="16.0"> ⊙ h</tspan><tspan dy="3.20" font-size="11.5">k</tspan><tspan dy="-3.20" font-size="16.0"> + D ⊙ x</tspan><tspan dy="3.20" font-size="11.5">k</tspan><tspan dy="-3.20" font-size="16.0">) ⊙ silu(G</tspan><tspan dy="3.20" font-size="11.5">k</tspan><tspan dy="-3.20" font-size="16.0">)，A = −exp(A_log)</tspan></text>
+<text text-anchor="start" fill="#111111"><tspan x="40" y="724" font-size="16.0">注：双向分支分别沿节点维正序与逆序扫描（逆序分支翻转后再翻转回来）；日历嵌入在每个 NodeMamba 内经 Linear(192→128) 注入。</tspan></text>
+<text text-anchor="start" fill="#3F4A56" font-weight="bold"><tspan x="40" y="794" font-size="20.0">(d) 共享双向交叉注意力融合（每级合并前调用，参数共享）</tspan></text>
+<text text-anchor="middle" fill="#3F1A5E" font-weight="bold"><tspan x="140" y="880.236" font-size="19.0">两路输入</tspan></text>
+<text text-anchor="middle" fill="#3F1A5E"><tspan x="140" y="907.614" font-size="16.0">偶序列 E：B×L</tspan><tspan dy="3.20" font-size="11.5">e</tspan><tspan dy="-3.20" font-size="16.0">×N</tspan></text>
+<text text-anchor="middle" fill="#3F1A5E"><tspan x="140" y="933.534" font-size="16.0">奇序列 O：B×L</tspan><tspan dy="3.20" font-size="11.5">o</tspan><tspan dy="-3.20" font-size="16.0">×N</tspan></text>
+<text text-anchor="middle" fill="#3F1A5E" font-weight="bold"><tspan x="375" y="880.236" font-size="19.0">线性投影 + 位置编码</tspan></text>
+<text text-anchor="middle" fill="#3F1A5E"><tspan x="375" y="907.614" font-size="16.0">Linear(N → 64)</tspan></text>
+<text text-anchor="middle" fill="#3F1A5E"><tspan x="375" y="933.534" font-size="16.0">+ 正弦 PE（原始索引）</tspan></text>
+<text text-anchor="middle" fill="#3F1A5E" font-weight="bold"><tspan x="625" y="878.9399999999999" font-size="20.0">4 头交叉注意力</tspan></text>
+<text text-anchor="middle" fill="#3F1A5E"><tspan x="625" y="907.9379999999999" font-size="17.0">Q = E, K = V = O</tspan></text>
+<text text-anchor="middle" fill="#3F1A5E"><tspan x="625" y="935.4779999999998" font-size="17.0">Q = O, K = V = E</tspan></text>
+<text text-anchor="middle" fill="#2C4A18" font-weight="bold"><tspan x="875" y="867.276" font-size="19.0">输出投影 + 残差</tspan></text>
+<text text-anchor="middle" fill="#2C4A18"><tspan x="875" y="894.654" font-size="16.0">Linear(64 → N)</tspan></text>
+<text text-anchor="middle" fill="#2C4A18"><tspan x="875" y="920.574" font-size="16.0">E + tanh(g</tspan><tspan dy="3.20" font-size="11.5">E</tspan><tspan dy="-3.20" font-size="16.0">) · ΔE</tspan></text>
+<text text-anchor="middle" fill="#2C4A18"><tspan x="875" y="946.4939999999999" font-size="16.0">O + tanh(g</tspan><tspan dy="3.20" font-size="11.5">O</tspan><tspan dy="-3.20" font-size="16.0">) · ΔO</tspan></text>
+<text text-anchor="middle" fill="#3F1A5E" font-weight="bold"><tspan x="1120" y="880.236" font-size="19.0">输出</tspan></text>
+<text text-anchor="middle" fill="#3F1A5E"><tspan x="1120" y="907.614" font-size="16.0">E′：B×L</tspan><tspan dy="3.20" font-size="11.5">e</tspan><tspan dy="-3.20" font-size="16.0">×N</tspan></text>
+<text text-anchor="middle" fill="#3F1A5E"><tspan x="1120" y="933.534" font-size="16.0">O′：B×L</tspan><tspan dy="3.20" font-size="11.5">o</tspan><tspan dy="-3.20" font-size="16.0">×N</tspan></text>
+<text text-anchor="start" fill="#111111"><tspan x="40" y="1000" font-size="17.0">ΔE = W</tspan><tspan dy="3.40" font-size="12.2">o</tspan><tspan dy="-3.40" font-size="17.0"> · softmax(Q</tspan><tspan dy="3.40" font-size="12.2">E</tspan><tspan dy="-3.40" font-size="17.0"> K</tspan><tspan dy="3.40" font-size="12.2">O</tspan><tspan dy="-8.50" font-size="12.2">⊤</tspan><tspan dy="5.10" font-size="17.0"> / √d</tspan><tspan dy="3.40" font-size="12.2">h</tspan><tspan dy="-3.40" font-size="17.0">) V</tspan><tspan dy="3.40" font-size="12.2">O</tspan><tspan dy="-3.40" font-size="17.0">，ΔO = W</tspan><tspan dy="3.40" font-size="12.2">o</tspan><tspan dy="-3.40" font-size="17.0"> · softmax(Q</tspan><tspan dy="3.40" font-size="12.2">O</tspan><tspan dy="-3.40" font-size="17.0"> K</tspan><tspan dy="3.40" font-size="12.2">E</tspan><tspan dy="-8.50" font-size="12.2">⊤</tspan><tspan dy="5.10" font-size="17.0"> / √d</tspan><tspan dy="3.40" font-size="12.2">h</tspan><tspan dy="-3.40" font-size="17.0">) V</tspan><tspan dy="3.40" font-size="12.2">E</tspan></text>
+<text text-anchor="start" fill="#111111"><tspan x="40" y="1032" font-size="16.0">token 为时间步（长度 L</tspan><tspan dy="3.20" font-size="11.5">e</tspan><tspan dy="-3.20" font-size="16.0"> / L</tspan><tspan dy="3.20" font-size="11.5">o</tspan><tspan dy="-3.20" font-size="16.0">），特征维为节点数 N；位置编码按原始 96 步索引取值。</tspan></text>
+<text text-anchor="start" fill="#111111"><tspan x="40" y="1062" font-size="16.0">该模块只沿时间索引交换信息、不跨节点传播；跨节点建模由卷积支路与 NodeMamba 承担。</tspan></text>
+</svg></div>
+<div class="cap">图 2　SCF-Mamba 关键模块结构。(b) SCI 交互块；(c) NodeMamba 块（沿节点轴的双向选择性状态空间）；(d) 共享双向交叉注意力融合模块。</div>
+</body></html>

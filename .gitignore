@@ -1,0 +1,20 @@
+# Local Git history retained from the original BasicTS checkout
+BasicTS.git-backup/
+
+# Local data, generated output, and machine-specific files
+.DS_Store
+.idea/
+.vscode/
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.venv/
+.env
+BasicTS/datasets/
+BasicTS/logs/
+BasicTS/checkpoints/
+BasicTS/ckpt/
+BasicTS/outputs/
+BasicTS/results/
+BasicTS/experiment_runs/
