@@ -64,6 +64,51 @@ class TestSCFMamba(unittest.TestCase):
         with self.assertRaises(ValueError):
             model(torch.zeros(1, 96, 16), time)
 
+    def test_amp_configuration_and_loss_reduction(self):
+        config = build_config(amp="bfloat16", activation_checkpoint=False,
+                              backend="torch")
+        self.assertEqual(config.model_dtype, "bfloat16")
+        self.assertFalse(config.model_config.activation_checkpoint)
+        model = SCFMamba(config.model_config)
+        self.assertTrue(all(p.dtype == torch.float32 for p in model.parameters()))
+        with self.assertRaises(ValueError):
+            build_config(gpus=None, backend="torch", amp="bfloat16")
+        prediction = torch.tensor([40000., 40000., 2.], dtype=torch.float16,
+                                  requires_grad=True)
+        loss = masked_mae(prediction, torch.zeros_like(prediction),
+                          torch.tensor([True, True, False]))
+        self.assertEqual(loss.dtype, torch.float32)
+        self.assertEqual(loss.item(), 40000.)
+        loss.backward()
+        self.assertTrue(torch.equal(prediction.grad, torch.tensor([.5, .5, 0.],
+                                                                  dtype=torch.float16)))
+
+    def test_disabling_checkpoint_preserves_outputs_and_gradients(self):
+        model = self.model().train()
+        with torch.no_grad():
+            for name, parameter in model.named_parameters():
+                if name.endswith("gate"):
+                    parameter.fill_(.2)
+        replica = copy.deepcopy(model)
+        for module in replica.modules():
+            if hasattr(module, "activation_checkpoint"):
+                module.activation_checkpoint = False
+        history = torch.randn(2, 96, 16)
+        timestamps = torch.zeros(2, 96, 2)
+        rng = torch.get_rng_state()
+        expected = model(history, timestamps)
+        expected.square().mean().backward()
+        torch.set_rng_state(rng)
+        actual = replica(history, timestamps)
+        actual.square().mean().backward()
+        torch.testing.assert_close(actual, expected, rtol=0, atol=0)
+        for name, parameter in model.named_parameters():
+            other = dict(replica.named_parameters())[name]
+            if parameter.grad is None:
+                self.assertIsNone(other.grad, name)
+            else:
+                torch.testing.assert_close(parameter.grad, other.grad, rtol=0, atol=0)
+
     def test_shared_attention_three_temporal_sites(self):
         model = self.model().eval()
         calls = []

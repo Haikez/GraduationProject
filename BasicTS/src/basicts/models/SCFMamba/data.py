@@ -57,6 +57,11 @@ class SCFMambaTaskFlow(BasicTSForecastingTaskFlow):
 
 
 def masked_mae(prediction, targets, targets_mask):
+    # Autocast may produce half tensors; reduce the loss in at least FP32.
+    if prediction.dtype in (torch.float16, torch.bfloat16):
+        prediction = prediction.float()
+    if targets.dtype in (torch.float16, torch.bfloat16):
+        targets = targets.float()
     error = (prediction - targets).abs()
     return torch.where(targets_mask, error, 0).sum() / targets_mask.sum().clamp_min(1)
 

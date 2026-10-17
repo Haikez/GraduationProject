@@ -55,7 +55,12 @@ class MaskedMetricsCallback(BasicTSCallback):
 
 def build_config(dataset="PEMS08", data_dir=None, horizon=12, epochs=80,
                  batch_size=64, gpus="0", backend="official", seed=4321,
-                 checkpoint_dir=None, num_workers=0, tf32=True):
+                 checkpoint_dir=None, num_workers=0, tf32=True, amp="off",
+                 activation_checkpoint=True):
+    if amp not in ("off", "bfloat16", "float16"):
+        raise ValueError("amp must be off, bfloat16 or float16")
+    if gpus is None and amp != "off":
+        raise ValueError("AMP requires CUDA; use amp='off' for CPU checks")
     folder = Path(data_dir or f"datasets/{dataset}").resolve()
     train_file = folder / "train_data.npy"
     num_nodes = (np.load(train_file, mmap_mode="r").shape[1] if train_file.exists()
@@ -65,7 +70,8 @@ def build_config(dataset="PEMS08", data_dir=None, horizon=12, epochs=80,
     return BasicTSForecastingConfig(
         model=SCFMamba,
         model_config=SCFMambaConfig(output_len=horizon, num_features=num_nodes,
-                                   mamba_backend=backend),
+                                   mamba_backend=backend,
+                                   activation_checkpoint=activation_checkpoint),
         dataset_name=dataset, input_len=96, output_len=horizon, use_timestamps=True,
         dataset_type=SCFMambaDataset, dataset_params={"data_file_path": str(folder)},
         scaler=None, rescale=False, taskflow=SCFMambaTaskFlow(),
@@ -78,7 +84,7 @@ def build_config(dataset="PEMS08", data_dir=None, horizon=12, epochs=80,
                  ("RMSE_masked", masked_rmse), ("MAPE_percent_masked", masked_mape)],
         target_metric="MAE_masked", eval_horizons=[h for h in (3, 6, 12, 24, 48, 96)
                                                  if h <= horizon],
-        tf32=tf32, model_dtype="float32", compile_model=False,
+        tf32=tf32, model_dtype="float32" if amp == "off" else amp, compile_model=False,
         cudnn_benchmark=False, cudnn_determinstic=True,
         ckpt_save_dir=checkpoint_dir, ckpt_save_strategy=None,
         test_interval=epochs + 1, eval_after_train=True, save_results=False,
@@ -100,16 +106,26 @@ def main():
     parser.add_argument("--seed", type=int, default=4321)
     parser.add_argument("--checkpoint-dir")
     parser.add_argument("--num-workers", type=int, default=0)
+    parser.add_argument("--amp", choices=("off", "bfloat16", "float16"), default="off",
+                        help="Autocast precision; parameters remain FP32")
+    parser.add_argument("--activation-checkpoint", action=argparse.BooleanOptionalAction,
+                        default=True, help="Recompute Mamba activations to save memory")
     parser.add_argument("--print-config", action="store_true")
     args = parser.parse_args()
     if min(args.horizon, args.epochs, args.batch_size) < 1 or args.num_workers < 0:
         parser.error("horizon, epochs and batch-size must be positive; workers cannot be negative")
     gpus = None if args.gpus == "cpu" else args.gpus
+    if gpus is None and args.amp != "off":
+        parser.error("AMP requires CUDA; CPU checks use --amp off")
     if gpus is not None and not args.print_config and not torch.cuda.is_available():
         parser.error("CUDA is unavailable; CPU checks require --gpus cpu --backend torch")
+    if (gpus is not None and not args.print_config and args.amp == "bfloat16"
+            and not torch.cuda.is_bf16_supported()):
+        parser.error("This GPU does not support BF16; choose --amp float16 or off")
     config = build_config(args.dataset, args.data_dir, args.horizon, args.epochs,
                           args.batch_size, gpus, args.backend, args.seed,
-                          args.checkpoint_dir, args.num_workers)
+                          args.checkpoint_dir, args.num_workers, amp=args.amp,
+                          activation_checkpoint=args.activation_checkpoint)
     if args.print_config:
         print(config)
     else:

@@ -45,6 +45,14 @@ PYTHONPATH=src python tests/basicts_test/test_scf_mamba.py -v
 
 默认输入96、batch64、80轮、seed4321，FP32+TF32，AMP关闭。Adam学习率0.001、每轮乘0.95；主干权重衰减1e-5，注意力为0。采用按时间顺序预分割的数组，每个split独立stride1切窗；只用训练集逐节点均值/标准差归一化。训练是标准化空间masked MAE，验证和测试使用原尺度masked指标，mask始终取原始标签 `!=0`。全零目标batch跳过优化器更新。按验证masked MAE保存最佳权重，80轮后测试最佳模型。
 
+启用混合精度、关闭节点Mamba激活重计算以减少重复计算：
+
+```bash
+PYTHONPATH=src python examples/forecasting/scf_mamba.py --dataset PEMS08 --horizon 96 --epochs 80 --amp bfloat16 --no-activation-checkpoint
+```
+
+`--amp` 支持 `off`、`bfloat16` 和 `float16`，模型参数和优化器状态保留FP32，masked MAE至少以FP32累计。BF16需GPU支持；FP16使用BasicTS原生GradScaler。验证和测试沿用FP32前向、原尺度FP64指标累计。关闭重计算会增加显存占用，正式并行训练前应测量完整batch的峰值显存及吞吐；开启AMP不保证更快或与FP32结果完全一致。CPU检查使用 `--amp off`。
+
 BasicTS原生管理日志、配置、最佳/末轮权重、优化器及调度器。注意力独立dropout状态随原生模型state_dict保存。测试脚本完整累计误差和有效元素数，以 `sqrt(global MSE)` 计算RMSE，并输出全部H步聚合和逐步指标。CPU检查需显式加 `--gpus cpu --backend torch`；评估使用 `--device cpu --backend torch`。
 
 ## 已有权重
